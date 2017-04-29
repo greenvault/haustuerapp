@@ -1,0 +1,1 @@
+CREATE TABLE door(id serial PRIMARY KEY, latitude varchar(255), longitude varchar(255));

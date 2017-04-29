@@ -27,7 +27,7 @@ public class DoorController {
   public List<Door> getDoors(@RequestParam(required = false) String district) {
     logger.info("Value of district={}", district);
 
-    return Arrays.asList(new Door(), new Door(), new Door());
+    return doorService.getAll();
   }
 
   @GetMapping("{id}")
