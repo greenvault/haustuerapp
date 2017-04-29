@@ -1,5 +1,20 @@
-CREATE TABLE door(id serial PRIMARY KEY, latitude varchar(255), longitude varchar(255));
 CREATE TABLE topic(
   id serial PRIMARY KEY,
   description varchar(255) NOT NULL
+);
+CREATE TABLE door(
+  id serial PRIMARY KEY,
+  address_city VARCHAR(255) NOT NULL,
+  address_company VARCHAR(255),
+  address_country VARCHAR(255) NOT NULL,
+  address_street VARCHAR(255) NOT NULL,
+  address_zip VARCHAR(255) NOT NULL,
+  geolocation_longitude DECIMAL,
+  geolocation_latitude DECIMAL,
+  door_opened boolean NOT NULL,
+  -- TODO add checks?
+  reaction INTEGER NOT NULL,
+  probability_to_vote INTEGER NOT NULL,
+  notes TEXT,
+  created_at TIMESTAMP NOT NULL
 );

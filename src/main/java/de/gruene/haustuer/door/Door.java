@@ -1,9 +1,15 @@
 package de.gruene.haustuer.door;
 
+import java.time.Instant;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Door {
@@ -11,8 +17,27 @@ public class Door {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String longitude;
-  private String latitude;
+
+  @Valid
+  @Embedded
+  private Geolocation geolocation;
+
+  @NotNull
+  @Valid
+  @Embedded
+  private Address address;
+
+  private boolean doorOpened;
+  @Min(1)
+  @Max(5)
+  @NotNull
+  private Integer reaction;
+  @Min(1)
+  @Max(10)
+  @NotNull
+  private Integer probabilityToVote;
+  private String notes;
+  private Instant createdAt;
 
   public Long getId() {
     return id;
@@ -22,20 +47,60 @@ public class Door {
     this.id = id;
   }
 
-  public String getLongitude() {
-    return longitude;
+  public Geolocation getGeolocation() {
+    return geolocation;
   }
 
-  public void setLongitude(String longitude) {
-    this.longitude = longitude;
+  public void setGeolocation(Geolocation geolocation) {
+    this.geolocation = geolocation;
   }
 
-  public String getLatitude() {
-    return latitude;
+  public Address getAddress() {
+    return address;
   }
 
-  public void setLatitude(String latitude) {
-    this.latitude = latitude;
+  public void setAddress(Address address) {
+    this.address = address;
+  }
+
+  public boolean isDoorOpened() {
+    return doorOpened;
+  }
+
+  public void setDoorOpened(boolean doorOpened) {
+    this.doorOpened = doorOpened;
+  }
+
+  public int getReaction() {
+    return reaction;
+  }
+
+  public void setReaction(int reaction) {
+    this.reaction = reaction;
+  }
+
+  public String getNotes() {
+    return notes;
+  }
+
+  public void setNotes(String notes) {
+    this.notes = notes;
+  }
+
+  public Instant getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Instant createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public int getProbabilityToVote() {
+    return probabilityToVote;
+  }
+
+  public void setProbabilityToVote(int probabilityToVote) {
+    this.probabilityToVote = probabilityToVote;
   }
 
   @Override
