@@ -1,4 +1,4 @@
-package de.gruene;
+package de.gruene.haustuer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

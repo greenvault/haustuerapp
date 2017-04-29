@@ -1,4 +1,4 @@
-package de.gruene;
+package de.gruene.haustuer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
