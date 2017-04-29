@@ -1,6 +1,9 @@
 package de.gruene.haustuer.topic;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -19,8 +22,8 @@ public class TopicService {
         this.topicRepo = topicRepo;
     }
 
-    public List<Topic> getAll() {
-        return topicRepo.findAll();
+    public List<String> getAll() {
+        return topicRepo.findAll().stream().map(topic -> topic.getDescription()).collect(Collectors.toList());
     }
 
     public Topic save(Topic topic) {

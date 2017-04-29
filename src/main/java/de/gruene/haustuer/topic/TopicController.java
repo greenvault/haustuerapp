@@ -26,7 +26,7 @@ public class TopicController {
     private TopicService topicService;
     
     @GetMapping
-    public List<Topic> getAllTopics(){
+    public List<String> getAllTopics(){
         return topicService.getAll();
     }
     
