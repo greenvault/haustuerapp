@@ -1,10 +1,12 @@
 package de.gruene.haustuer.door;
 
+import de.gruene.haustuer.door.Door.UserWritable;
 import java.util.List;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +37,9 @@ public class DoorController {
   }
 
   @PostMapping
-  public Door createDoor(@Valid @RequestBody Door door) {
-     return doorService.create(door);
+  public Door createDoor(@Validated({UserWritable.class}) @RequestBody Door door,
+      Authentication authentication) {
+    return doorService.create(door, authentication.getName());
   }
 
 }

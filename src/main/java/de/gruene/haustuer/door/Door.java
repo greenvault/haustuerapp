@@ -1,18 +1,27 @@
 package de.gruene.haustuer.door;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.gruene.haustuer.user.User;
 import java.time.Instant;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
+import org.hibernate.sql.Update;
 
 @Entity
 public class Door {
+
+  public interface UserWritable {
+
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,14 +39,19 @@ public class Door {
   private boolean doorOpened;
   @Min(1)
   @Max(5)
-  @NotNull
+  @NotNull(groups = {Default.class, UserWritable.class})
   private Integer reaction;
   @Min(1)
   @Max(10)
-  @NotNull
+  @NotNull(groups = {Default.class, UserWritable.class})
   private Integer probabilityToVote;
   private String notes;
   private Instant createdAt;
+
+  @ManyToOne
+  @NotNull(groups = {Default.class})
+  @JsonIgnore
+  private User creator;
 
   public Long getId() {
     return id;
@@ -127,5 +141,13 @@ public class Door {
   @Override
   public int hashCode() {
     return id != null ? id.hashCode() : 0;
+  }
+
+  public User getCreator() {
+    return creator;
+  }
+
+  public void setCreator(User creator) {
+    this.creator = creator;
   }
 }
