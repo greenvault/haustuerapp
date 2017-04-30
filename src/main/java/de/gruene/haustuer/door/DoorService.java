@@ -1,44 +1,56 @@
 package de.gruene.haustuer.door;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import de.gruene.haustuer.NotFoundException;
+import de.gruene.haustuer.topic.TopicRepository;
 import de.gruene.haustuer.user.User;
 import de.gruene.haustuer.user.UserRepository;
-import java.util.List;
-import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
 public class DoorService {
 
-  private final DoorRepository doorRepo;
-  private final UserRepository userRepository;
+    private final DoorRepository doorRepo;
+    private final TopicRepository topicRepo;
+    private final UserRepository userRepository;
 
-  public DoorService(DoorRepository doorRepo, UserRepository userRepository) {
-    this.doorRepo = doorRepo;
-    this.userRepository = userRepository;
-  }
-
-  public Door getDoorById(Long id) {
-    return doorRepo.findOne(id);
-  }
-
-  public Door create(Door door, String email) {
-    if (door.getId() != null) {
-      door.setId(null);
+    public DoorService(final DoorRepository doorRepo, final UserRepository userRepository,
+            final TopicRepository topicRepo) {
+        this.doorRepo = doorRepo;
+        this.userRepository = userRepository;
+        this.topicRepo = topicRepo;
     }
 
-    User user = userRepository.findByEmail(email);
-    if(user == null)
-      throw new NotFoundException();
+    public Door create(final Door door, final String email) {
+        if (door.getId() != null) {
+            door.setId(null);
+        }
 
-    door.setCreator(user);
-    doorRepo.save(door);
-    return door;
-  }
+        final User user = this.userRepository.findByEmail(email);
+        if (user == null)
+            throw new NotFoundException();
 
-  public List<Door> getAll() {
-    return doorRepo.findAll();
-  }
+        door.setCreator(user);
+        // System.out.println(door.get);
+        this.doorRepo.save(door);
+
+        door.setTopics(new HashSet<>(this.topicRepo
+                .findAll(door.getTopics().stream().map(topic -> topic.getId()).collect(Collectors.toList()))));
+        return door;
+    }
+
+    public List<Door> getAll() {
+        return this.doorRepo.findAll();
+    }
+
+    public Door getDoorById(final Long id) {
+        return this.doorRepo.findOne(id);
+    }
 }
