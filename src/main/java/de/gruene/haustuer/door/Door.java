@@ -1,8 +1,11 @@
 package de.gruene.haustuer.door;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.gruene.haustuer.topic.Topic;
+import de.gruene.haustuer.user.User;
 import java.time.Instant;
 import java.util.Set;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,152 +20,147 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import de.gruene.haustuer.topic.Topic;
-import de.gruene.haustuer.user.User;
-
 @Entity
 public class Door {
 
-    public interface UserWritable {
+  public interface UserWritable {
 
+  }
+
+  @NotNull
+  @Valid
+  @Embedded
+  private Address address;
+
+  private Instant createdAt;
+
+  @ManyToOne
+  @NotNull(groups = {Default.class})
+  @JsonIgnore
+  private User creator;
+
+  private boolean doorOpened;
+  @Valid
+  @Embedded
+  private Geolocation geolocation;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String notes;
+  @Min(1)
+  @Max(10)
+  @NotNull(groups = {Default.class, UserWritable.class})
+  private Integer probabilityToVote;
+
+  @Min(1)
+  @Max(5)
+  @NotNull(groups = {Default.class, UserWritable.class})
+  private Integer reaction;
+
+  @ManyToMany(targetEntity = Topic.class, fetch = FetchType.EAGER)
+  private Set<Topic> topics;
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || this.getClass() != o.getClass()) {
+      return false;
     }
 
-    @NotNull
-    @Valid
-    @Embedded
-    private Address address;
+    final Door door = (Door) o;
 
-    private Instant createdAt;
+    return this.id != null ? this.id.equals(door.id) : door.id == null;
+  }
 
-    @ManyToOne
-    @NotNull(groups = { Default.class })
-    @JsonIgnore
-    private User creator;
+  public Address getAddress() {
+    return this.address;
+  }
 
-    private boolean doorOpened;
-    @Valid
-    @Embedded
-    private Geolocation geolocation;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String notes;
-    @Min(1)
-    @Max(10)
-    @NotNull(groups = { Default.class, UserWritable.class })
-    private Integer probabilityToVote;
+  public Instant getCreatedAt() {
+    return this.createdAt;
+  }
 
-    @Min(1)
-    @Max(5)
-    @NotNull(groups = { Default.class, UserWritable.class })
-    private Integer reaction;
+  public User getCreator() {
+    return this.creator;
+  }
 
-    @ManyToMany(targetEntity = Topic.class, fetch = FetchType.EAGER)
-    private Set<Topic> topics;
+  public Geolocation getGeolocation() {
+    return this.geolocation;
+  }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || this.getClass() != o.getClass()) {
-            return false;
-        }
+  public Long getId() {
+    return this.id;
+  }
 
-        final Door door = (Door) o;
+  public String getNotes() {
+    return this.notes;
+  }
 
-        return this.id != null ? this.id.equals(door.id) : door.id == null;
-    }
+  public int getProbabilityToVote() {
+    return this.probabilityToVote;
+  }
 
-    public Address getAddress() {
-        return this.address;
-    }
+  public int getReaction() {
+    return this.reaction;
+  }
 
-    public Instant getCreatedAt() {
-        return this.createdAt;
-    }
+  public Set<Topic> getTopics() {
+    return this.topics;
+  }
 
-    public User getCreator() {
-        return this.creator;
-    }
+  @Override
+  public int hashCode() {
+    return this.id != null ? this.id.hashCode() : 0;
+  }
 
-    public Geolocation getGeolocation() {
-        return this.geolocation;
-    }
+  public boolean isDoorOpened() {
+    return this.doorOpened;
+  }
 
-    public Long getId() {
-        return this.id;
-    }
+  public void setAddress(final Address address) {
+    this.address = address;
+  }
 
-    public String getNotes() {
-        return this.notes;
-    }
+  public void setCreatedAt(final Instant createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public int getProbabilityToVote() {
-        return this.probabilityToVote;
-    }
+  public void setCreator(final User creator) {
+    this.creator = creator;
+  }
 
-    public int getReaction() {
-        return this.reaction;
-    }
+  public void setDoorOpened(final boolean doorOpened) {
+    this.doorOpened = doorOpened;
+  }
 
-    public Set<Topic> getTopics() {
-        return this.topics;
-    }
+  public void setGeolocation(final Geolocation geolocation) {
+    this.geolocation = geolocation;
+  }
 
-    @Override
-    public int hashCode() {
-        return this.id != null ? this.id.hashCode() : 0;
-    }
+  void setId(final Long id) {
+    this.id = id;
+  }
 
-    public boolean isDoorOpened() {
-        return this.doorOpened;
-    }
+  public void setNotes(final String notes) {
+    this.notes = notes;
+  }
 
-    public void setAddress(final Address address) {
-        this.address = address;
-    }
+  public void setProbabilityToVote(final int probabilityToVote) {
+    this.probabilityToVote = probabilityToVote;
+  }
 
-    public void setCreatedAt(final Instant createdAt) {
-        this.createdAt = createdAt;
-    }
+  public void setReaction(final int reaction) {
+    this.reaction = reaction;
+  }
 
-    public void setCreator(final User creator) {
-        this.creator = creator;
-    }
+  public void setTopics(final Set<Topic> topics) {
+    this.topics = topics;
+  }
 
-    public void setDoorOpened(final boolean doorOpened) {
-        this.doorOpened = doorOpened;
-    }
-
-    public void setGeolocation(final Geolocation geolocation) {
-        this.geolocation = geolocation;
-    }
-
-    void setId(final Long id) {
-        this.id = id;
-    }
-
-    public void setNotes(final String notes) {
-        this.notes = notes;
-    }
-
-    public void setProbabilityToVote(final int probabilityToVote) {
-        this.probabilityToVote = probabilityToVote;
-    }
-
-    public void setReaction(final int reaction) {
-        this.reaction = reaction;
-    }
-
-    public void setTopics(final Set<Topic> topics) {
-        this.topics = topics;
-    }
-
-    @Override
-    public String toString() {
-        return "Door{" + "id=" + this.id + '}';
-    }
+  @Override
+  public String toString() {
+    return "Door{" + "id=" + this.id + '}';
+  }
 }
