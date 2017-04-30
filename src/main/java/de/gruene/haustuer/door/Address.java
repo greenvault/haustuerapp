@@ -82,7 +82,7 @@ public class Address {
   }
 
   @Override
-  public int hashCode() {q
+  public int hashCode() {
     int result = street != null ? street.hashCode() : 0;
     result = 31 * result + (city != null ? city.hashCode() : 0);
     result = 31 * result + (zip != null ? zip.hashCode() : 0);
