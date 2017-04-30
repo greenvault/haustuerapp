@@ -58,6 +58,7 @@ public class HaustuerappServicesApplication {
           .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
           .authorizeRequests()
           .antMatchers("/user/**").permitAll()
+          .antMatchers("/apidocs/**").permitAll()
           .anyRequest().hasRole("USER");
     }
   }

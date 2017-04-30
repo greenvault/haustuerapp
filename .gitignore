@@ -7,3 +7,4 @@ target/
 .eclipse-pmd
 .project
 .settings/
+src/main/resources/static/apidocs/
