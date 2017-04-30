@@ -5,7 +5,6 @@ CREATE TABLE topic(
 CREATE TABLE door(
   id serial PRIMARY KEY,
   address_city VARCHAR(255) NOT NULL,
-  address_company VARCHAR(255),
   address_country VARCHAR(255) NOT NULL,
   address_street VARCHAR(255) NOT NULL,
   address_zip VARCHAR(255) NOT NULL,

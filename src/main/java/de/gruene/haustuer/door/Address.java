@@ -9,8 +9,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Embeddable
 public class Address {
   
-  @Max(255)
-  private String company;
   @NotNull
   @NotEmpty
   @Size(max = 255)
@@ -27,14 +25,6 @@ public class Address {
   @NotEmpty
   @Size(max = 255)
   private String country;
-
-  public String getCompany() {
-    return company;
-  }
-
-  public void setCompany(String company) {
-    this.company = company;
-  }
 
   public String getStreet() {
     return street;
@@ -79,9 +69,6 @@ public class Address {
 
     Address address = (Address) o;
 
-    if (company != null ? !company.equals(address.company) : address.company != null) {
-      return false;
-    }
     if (street != null ? !street.equals(address.street) : address.street != null) {
       return false;
     }
@@ -95,9 +82,8 @@ public class Address {
   }
 
   @Override
-  public int hashCode() {
-    int result = company != null ? company.hashCode() : 0;
-    result = 31 * result + (street != null ? street.hashCode() : 0);
+  public int hashCode() {q
+    int result = street != null ? street.hashCode() : 0;
     result = 31 * result + (city != null ? city.hashCode() : 0);
     result = 31 * result + (zip != null ? zip.hashCode() : 0);
     result = 31 * result + (country != null ? country.hashCode() : 0);
