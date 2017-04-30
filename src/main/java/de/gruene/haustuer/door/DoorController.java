@@ -1,6 +1,5 @@
 package de.gruene.haustuer.door;
 
-import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -37,8 +36,7 @@ public class DoorController {
 
   @PostMapping
   public Door createDoor(@Valid @RequestBody Door door) {
-    doorService.save(door);
-    return door;
+     return doorService.create(door);
   }
 
 }
