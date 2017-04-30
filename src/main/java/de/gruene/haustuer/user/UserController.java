@@ -1,5 +1,6 @@
 package de.gruene.haustuer.user;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,18 +16,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/confirm")
-    public ResponseEntity<User> confirmUser(@RequestBody final User user) {
+    @PostMapping("confirm")
+    public ResponseEntity<User> confirmUser(@Valid @RequestBody final User user) {
         final boolean succeeded = this.userService.confirm(user);
-        return succeeded ? new ResponseEntity<User>(HttpStatus.ACCEPTED)
-                : new ResponseEntity<User>(HttpStatus.CONFLICT);
+        return succeeded ? new ResponseEntity<>(HttpStatus.ACCEPTED)
+                : new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody final User user) {
+    @PostMapping
+    public ResponseEntity<User> createUser(@Valid @RequestBody final User user) {
         final boolean succeeded = this.userService.create(user);
-        return succeeded ? new ResponseEntity<User>(HttpStatus.ACCEPTED)
-                : new ResponseEntity<User>(HttpStatus.CONFLICT);
+        return succeeded ? new ResponseEntity<>(HttpStatus.ACCEPTED)
+                : new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
 }
