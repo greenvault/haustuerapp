@@ -18,13 +18,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("confirm")
-    public ResponseEntity<User> confirmUser(@Valid @RequestBody final User user) {
-        final boolean succeeded = this.userService.confirm(user);
-        return succeeded ? new ResponseEntity<>(HttpStatus.ACCEPTED)
-                : new ResponseEntity<>(HttpStatus.CONFLICT);
-    }
-
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody final User user) {
         final boolean succeeded = this.userService.create(user);

@@ -19,34 +19,20 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepo;
 
-    public boolean confirm(final User user) {
-        final User userFromDB = this.userRepo.findByEmail(user.getEmail());
-        // TODO implement proper error codes
-        if (userFromDB.getUid().equals(user.getUid()) && BCrypt.checkpw(user.getPassword(), userFromDB.getPassword())) {
-            userFromDB.setIsConfirmed(true);
-            this.userRepo.save(userFromDB);
-            return true;
-        }
-        return false;
-    }
-
     public boolean create(final User user) {
         if (this.userRepo.existsByEmail(user.getEmail())) {
             return false;
         }
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-        user.setIsConfirmed(false);
-        user.setUid(UUID.randomUUID().toString());
-        // TODO send email
         this.userRepo.save(user);
         return true;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByEmailAndIsConfirmedTrue(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepo.findByEmail(email);
         if (user == null) {
-          throw new UsernameNotFoundException("User=" + username + " not found.");
+          throw new UsernameNotFoundException("User=" + email + " not found.");
         }
         return new UserDetails() {
             @Override
@@ -82,7 +68,7 @@ public class UserService implements UserDetailsService {
 
             @Override
             public boolean isEnabled() {
-                return user.getIsConfirmed();
+                return true;
             }
         };
     }

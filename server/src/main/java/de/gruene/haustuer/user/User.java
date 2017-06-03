@@ -18,15 +18,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private Boolean isConfirmed;
-
     @NotNull
     private String name;
 
     @NotNull
     private String password;
-
-    private String uid;
 
     @Override
     public boolean equals(final Object obj) {
@@ -65,20 +61,12 @@ public class User {
         return this.id;
     }
 
-    public Boolean getIsConfirmed() {
-        return this.isConfirmed;
-    }
-
     public String getName() {
         return this.name;
     }
 
     public String getPassword() {
         return this.password;
-    }
-
-    public String getUid() {
-        return this.uid;
     }
 
     @Override
@@ -100,20 +88,12 @@ public class User {
         this.id = id;
     }
 
-    public void setIsConfirmed(final Boolean isConfirmed) {
-        this.isConfirmed = isConfirmed;
-    }
-
     public void setName(final String name) {
         this.name = name;
     }
 
     public void setPassword(final String password) {
         this.password = password;
-    }
-
-    public void setUid(final String uid) {
-        this.uid = uid;
     }
 
     @Override

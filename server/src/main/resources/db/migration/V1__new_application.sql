@@ -7,9 +7,7 @@ CREATE TABLE usr(
   id bigserial PRIMARY KEY,
   email VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL,
-  password VARCHAR(60) NOT NULL,
-  is_confirmed BOOLEAN NOT NULL,
-  uid VARCHAR(255)
+  password VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE door(
@@ -28,3 +26,10 @@ CREATE TABLE door(
   created_at TIMESTAMP NOT NULL,
   creator_id BIGINT REFERENCES usr(id)
 );
+
+CREATE TABLE door_topic(
+  topics_id BIGINT,
+  door_id BIGINT,
+  FOREIGN KEY (topics_id) REFERENCES topic(id),
+  FOREIGN KEY (door_id) REFERENCES door(id)
+)
