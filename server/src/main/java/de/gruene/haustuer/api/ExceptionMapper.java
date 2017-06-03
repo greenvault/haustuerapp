@@ -1,5 +1,6 @@
-package de.gruene.haustuer;
+package de.gruene.haustuer.api;
 
+import de.gruene.haustuer.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

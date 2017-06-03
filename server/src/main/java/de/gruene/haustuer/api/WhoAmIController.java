@@ -1,4 +1,4 @@
-package de.gruene.haustuer.user;
+package de.gruene.haustuer.api;
 
 import java.util.HashMap;
 import java.util.Map;

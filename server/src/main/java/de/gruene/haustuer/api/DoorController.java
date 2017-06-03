@@ -1,6 +1,8 @@
-package de.gruene.haustuer.door;
+package de.gruene.haustuer.api;
 
+import de.gruene.haustuer.door.Door;
 import de.gruene.haustuer.door.Door.UserWritable;
+import de.gruene.haustuer.door.DoorService;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

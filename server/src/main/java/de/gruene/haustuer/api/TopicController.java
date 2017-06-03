@@ -1,5 +1,7 @@
-package de.gruene.haustuer.topic;
+package de.gruene.haustuer.api;
 
+import de.gruene.haustuer.topic.Topic;
+import de.gruene.haustuer.topic.TopicService;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import de.gruene.haustuer.door.DoorController;
 
 @RestController()
 @RequestMapping("/topic")

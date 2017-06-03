@@ -1,5 +1,7 @@
-package de.gruene.haustuer.user;
+package de.gruene.haustuer.api;
 
+import de.gruene.haustuer.user.User;
+import de.gruene.haustuer.user.UserService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package de.gruene.haustuer.apidocs;
+package de.gruene.haustuer.api;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
