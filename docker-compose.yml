@@ -9,8 +9,8 @@ services:
       - POSTGRES_DB=haustuer
       - POSTGRES_PASSWORD=haustuer
   service:
-    build: .
-    image: netzgruen/haustuerapp-services
+    build: server/
+    image: netzgruen/haustuerapp-server
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     links:
@@ -26,4 +26,4 @@ services:
       - service
       - ui
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./reverseproxy/nginx.conf:/etc/nginx/conf.d/default.conf
