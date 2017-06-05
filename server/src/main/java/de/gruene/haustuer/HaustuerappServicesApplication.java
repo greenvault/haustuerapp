@@ -29,11 +29,6 @@ public class HaustuerappServicesApplication {
     SpringApplication.run(HaustuerappServicesApplication.class, args);
   }
 
-  @Bean
-  public PasswordEncoder bcryptPasswordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
   // TODO read JacksonProperties?
   @Bean
   public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
@@ -44,23 +39,6 @@ public class HaustuerappServicesApplication {
         .registerModule(new Jdk8Module())
         .registerModule(new JavaTimeModule());
     return objectMapper;
-  }
-
-
-  @EnableWebSecurity
-  @Configuration
-  static class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http.csrf().disable()
-          .httpBasic().realmName("netzgruen").and()
-          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-          .authorizeRequests()
-          .antMatchers("/user/**").permitAll()
-          .antMatchers("/docs/**").permitAll()
-          .anyRequest().hasRole("USER");
-    }
   }
 }
 
