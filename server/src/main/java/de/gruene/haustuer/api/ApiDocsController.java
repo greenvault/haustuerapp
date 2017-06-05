@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/apidocs")
+@RequestMapping("/docs")
 public class ApiDocsController {
 
   @GetMapping
   String redirect() {
-    return "redirect:/apidocs/index.html";
+    return "redirect:/docs/index.html";
   }
 
 }
