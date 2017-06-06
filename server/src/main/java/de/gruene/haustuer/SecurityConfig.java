@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 import javax.sql.DataSource;
+import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
 
 /**
  * Created by @atamanroman on 05.06.17.
@@ -28,31 +29,7 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @Configuration
 @EnableResourceServer
-@EnableAuthorizationServer
-public class SecurityConfig /* extends WebSecurityConfigurerAdapter */ {
-
-  @Autowired
-  DataSource ds;
-
-  @Autowired
-  public PasswordEncoder passwordEncoder;
-
-  @Bean
-  public PasswordEncoder bcryptPasswordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-//
-//  @Override
-//  protected void configure(HttpSecurity http) throws Exception {
-//    http.csrf().disable()
-//      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//      .authorizeRequests()
-//      .antMatchers("/user/**").permitAll()
-//      .antMatchers("/docs/**").permitAll()
-//      .anyRequest().hasRole("USER");
-//  }
-
-
+public class SecurityConfig {
 
   @Bean
   public ResourceServerConfigurer resourceServerConfigurer() {
