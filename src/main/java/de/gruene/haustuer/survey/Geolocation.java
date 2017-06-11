@@ -1,4 +1,4 @@
-package de.gruene.haustuer.door;
+package de.gruene.haustuer.survey;
 
 import javax.persistence.Embeddable;
 

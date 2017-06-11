@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/topic")
 public class TopicController {
 
-    private static Logger logger = LoggerFactory.getLogger(DoorController.class);
+    private static Logger logger = LoggerFactory.getLogger(SurveyResponseController.class);
 
     @Autowired
     private TopicService topicService;
