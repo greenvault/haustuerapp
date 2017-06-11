@@ -3,7 +3,6 @@ package de.gruene.haustuer.door;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.gruene.haustuer.topic.Topic;
-import de.gruene.haustuer.user.User;
 import java.time.Instant;
 import java.util.Set;
 import javax.persistence.Embedded;
@@ -37,7 +36,7 @@ public class Door {
   @ManyToOne
   @NotNull(groups = {Default.class})
   @JsonIgnore
-  private User creator;
+  private String creator;
 
   private boolean doorOpened;
   @Valid
@@ -82,7 +81,7 @@ public class Door {
     return this.createdAt;
   }
 
-  public User getCreator() {
+  public String getCreator() {
     return this.creator;
   }
 
@@ -127,7 +126,7 @@ public class Door {
     this.createdAt = createdAt;
   }
 
-  public void setCreator(final User creator) {
+  public void setCreator(final String creator) {
     this.creator = creator;
   }
 

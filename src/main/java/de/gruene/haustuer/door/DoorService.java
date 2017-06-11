@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import de.gruene.haustuer.NotFoundException;
 import de.gruene.haustuer.topic.TopicRepository;
-import de.gruene.haustuer.user.User;
-import de.gruene.haustuer.user.UserRepository;
 
 @Service
 @Transactional
@@ -19,23 +17,17 @@ public class DoorService {
 
     private final DoorRepository doorRepo;
     private final TopicRepository topicRepo;
-    private final UserRepository userRepository;
 
-    public DoorService(final DoorRepository doorRepo, final UserRepository userRepository,
+    public DoorService(final DoorRepository doorRepo,
             final TopicRepository topicRepo) {
         this.doorRepo = doorRepo;
-        this.userRepository = userRepository;
         this.topicRepo = topicRepo;
     }
 
-    public Door create(final Door door, final String email) {
+    public Door create(final Door door, final String user) {
         if (door.getId() != null) {
             door.setId(null);
         }
-
-        final User user = this.userRepository.findByEmail(email);
-        if (user == null)
-            throw new NotFoundException();
 
         door.setCreator(user);
         // System.out.println(door.get);
