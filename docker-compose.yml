@@ -9,7 +9,7 @@ services:
       - POSTGRES_DB=haustuer
       - POSTGRES_PASSWORD=haustuer
   service:
-    build: server/
+    build: .
     image: netzgruen/haustuerapp-server
     environment:
       - SPRING_PROFILES_ACTIVE=prod
