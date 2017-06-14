@@ -3,6 +3,7 @@ package de.gruene.haustuer.survey;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.gruene.haustuer.topic.Topic;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -26,9 +27,9 @@ public class SurveyResponse {
   @NotNull
   @Valid
   @Embedded
-  private StreetLevelAddress address;
+  private Address address;
   @JsonIgnore
-  private Instant createdAt;
+  private Instant createdAt = Instant.now();
   @NotNull(groups = {Default.class})
   @JsonIgnore
   private String creator;
@@ -46,7 +47,7 @@ public class SurveyResponse {
   @NotNull(groups = {Default.class, UserWritable.class})
   private Integer reaction;
   @ManyToMany(targetEntity = Topic.class, fetch = FetchType.EAGER)
-  private Set<Topic> topics;
+  private Set<Topic> topics = new HashSet<>();
   private boolean doorOpened;
 
   public Long getId() {
@@ -57,11 +58,11 @@ public class SurveyResponse {
     this.id = id;
   }
 
-  public StreetLevelAddress getAddress() {
+  public Address getAddress() {
     return address;
   }
 
-  public void setAddress(StreetLevelAddress address) {
+  public void setAddress(Address address) {
     this.address = address;
   }
 

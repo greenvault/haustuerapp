@@ -24,7 +24,7 @@ public class Door {
   @Embedded
   private Address address;
   @JsonIgnore
-  private Instant createdAt;
+  private Instant createdAt = Instant.now();
   @NotNull(groups = {Default.class})
   @JsonIgnore
   private String creator;

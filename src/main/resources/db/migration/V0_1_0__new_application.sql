@@ -20,11 +20,6 @@ CREATE TABLE door(
   address_zip VARCHAR(255) NOT NULL,
   geolocation_longitude DOUBLE PRECISION,
   geolocation_latitude DOUBLE PRECISION,
-  door_opened boolean NOT NULL,
-  -- TODO add checks?
-  reaction INTEGER NOT NULL,
-  probability_to_vote INTEGER NOT NULL,
-  notes TEXT,
   created_at TIMESTAMP NOT NULL,
   creator VARCHAR(255) NOT NULL
 );
@@ -34,6 +29,7 @@ CREATE TABLE survey_response(
   address_city VARCHAR(255) NOT NULL,
   address_country VARCHAR(255) NOT NULL,
   address_street VARCHAR(255) NOT NULL,
+  address_number VARCHAR(255),
   address_zip VARCHAR(255) NOT NULL,
   geolocation_longitude DOUBLE PRECISION,
   geolocation_latitude DOUBLE PRECISION,
