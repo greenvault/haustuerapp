@@ -10,27 +10,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class SurveyResponseService {
+public class SurveyService {
 
   private final DoorRepository doorRepo;
   private final TopicRepository topicRepo;
   private final SurveyResponseRepository surveyResponseRepository;
 
-  public SurveyResponseService(DoorRepository doorRepo, TopicRepository topicRepo,
+  public SurveyService(DoorRepository doorRepo, TopicRepository topicRepo,
     SurveyResponseRepository surveyResponseRepository) {
     this.doorRepo = doorRepo;
     this.topicRepo = topicRepo;
     this.surveyResponseRepository = surveyResponseRepository;
   }
 
-  public SurveyResponse create(SurveyResponse survey, String user) {
+  public CreateResult create(SurveyResponse survey, Door door, String user) {
     if (survey.getId() != null) {
       survey.setId(null);
     }
 
     survey.setCreator(user);
-    createDoor(survey);
-
     // we don't save house numbers for responses
     survey.getAddress().setNumber(null);
     surveyResponseRepository.save(survey);
@@ -39,17 +37,10 @@ public class SurveyResponseService {
       topicRepo.findAll(survey.getTopics().stream().map(Topic::getId).collect(Collectors.toSet()))
     ));
 
-
-    return survey;
-  }
-
-  private void createDoor(SurveyResponse survey) {
-    Door door = new Door();
-    door.setAddress(new Address(survey.getAddress()));
-    door.setCreatedAt(survey.getCreatedAt());
-    door.setCreator(survey.getCreator());
-    door.setGeolocation(survey.getGeolocation());
+    door.setCreator(user);
     doorRepo.save(door);
+
+    return new CreateResult(door.getId(), survey.getId());
   }
 
   public List<SurveyResponse> getAll() {
@@ -58,5 +49,24 @@ public class SurveyResponseService {
 
   public SurveyResponse getSurveyResponseById(final Long id) {
     return surveyResponseRepository.findOne(id);
+  }
+
+  public static class CreateResult {
+
+    long surveyId;
+    long doorId;
+
+    public CreateResult(long surveyId, long doorId) {
+      this.surveyId = surveyId;
+      this.doorId = doorId;
+    }
+
+    public long getSurveyId() {
+      return surveyId;
+    }
+
+    public long getDoorId() {
+      return doorId;
+    }
   }
 }

@@ -8,6 +8,19 @@ public class Geolocation {
   private double longitude;
   private double latitude;
 
+  public Geolocation() {
+  }
+
+  public Geolocation(double longitude, double latitude) {
+    this.longitude = longitude;
+    this.latitude = latitude;
+  }
+
+  public Geolocation(Geolocation other) {
+    this.longitude = other.longitude;
+    this.latitude = other.latitude;
+  }
+
   public double getLongitude() {
     return longitude;
   }
@@ -55,8 +68,8 @@ public class Geolocation {
   @Override
   public String toString() {
     return "Geolocation{" +
-        "longitude='" + longitude + '\'' +
-        ", latitude='" + latitude + '\'' +
-        '}';
+      "longitude='" + longitude + '\'' +
+      ", latitude='" + latitude + '\'' +
+      '}';
   }
 }

@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.groups.Default;
 
 @Entity
 public class SurveyResponse {
@@ -30,21 +29,18 @@ public class SurveyResponse {
   private Address address;
   @JsonIgnore
   private Instant createdAt = Instant.now();
-  @NotNull(groups = {Default.class})
+  @NotNull
   @JsonIgnore
   private String creator;
-  @Valid
-  @Embedded
-  private Geolocation geolocation;
 
   private String notes;
   @Min(1)
   @Max(10)
-  @NotNull(groups = {Default.class, UserWritable.class})
+  @NotNull
   private Integer probabilityToVote;
   @Min(1)
   @Max(5)
-  @NotNull(groups = {Default.class, UserWritable.class})
+  @NotNull
   private Integer reaction;
   @ManyToMany(targetEntity = Topic.class, fetch = FetchType.EAGER)
   private Set<Topic> topics = new HashSet<>();
@@ -80,14 +76,6 @@ public class SurveyResponse {
 
   public void setCreator(String creator) {
     this.creator = creator;
-  }
-
-  public Geolocation getGeolocation() {
-    return geolocation;
-  }
-
-  public void setGeolocation(Geolocation geolocation) {
-    this.geolocation = geolocation;
   }
 
   public String getNotes() {

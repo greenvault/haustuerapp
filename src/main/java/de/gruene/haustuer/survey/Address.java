@@ -27,7 +27,8 @@ public class Address {
   @Size(max = 255)
   private String country;
 
-  public Address() {}
+  public Address() {
+  }
 
   public Address(Address other) {
     street = other.street;

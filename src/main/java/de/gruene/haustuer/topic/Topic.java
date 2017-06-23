@@ -9,65 +9,85 @@ import javax.validation.constraints.Size;
 
 @Entity
 public class Topic {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @NotNull
-    @Size(min=1)
-    private String description;
-    
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Topic other = (Topic) obj;
-        if (description == null) {
-            if (other.description != null)
-                return false;
-        } else if (!description.equals(other.description))
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+  @NotNull
+  @Size(min = 1)
+  private String description;
+
+  public Topic() {
+  }
+
+  public Topic(Long id, String description) {
+    this.id = id;
+    this.description = description;
+  }
+
+  public Topic(Topic other) {
+    this.id = other.id;
+    String s = this.description = other.description;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
     }
-
-    public String getDescription() {
-        return description;
+    if (obj == null) {
+      return false;
     }
-
-    public Long getId() {
-        return id;
+    if (getClass() != obj.getClass()) {
+      return false;
     }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+    Topic other = (Topic) obj;
+    if (description == null) {
+      if (other.description != null) {
+        return false;
+      }
+    } else if (!description.equals(other.description)) {
+      return false;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
+    if (id == null) {
+      if (other.id != null) {
+        return false;
+      }
+    } else if (!id.equals(other.id)) {
+      return false;
     }
+    return true;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    @Override
-    public String toString() {
-        return "Topic [description=" + description + ", id=" + id + "]";
-    }
+  public Long getId() {
+    return id;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    return result;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  @Override
+  public String toString() {
+    return "Topic [description=" + description + ", id=" + id + "]";
+  }
 
 }
