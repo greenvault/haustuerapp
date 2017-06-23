@@ -2,7 +2,6 @@ package de.gruene.haustuer.api;
 
 import de.gruene.haustuer.survey.SurveyResponse;
 import de.gruene.haustuer.survey.SurveyService;
-import de.gruene.haustuer.survey.SurveyService.CreateResult;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +37,7 @@ public class SurveyController {
   }
 
   @PostMapping
-  public CreateResult recordSurveyResponse(@RequestBody SurveyUserData surveyUserData,
+  public SurveyResponse recordSurveyResponse(@RequestBody SurveyUserData surveyUserData,
     Authentication authentication) {
     return surveyResponseService
       .create(surveyUserData.toSurveyResponse(), surveyUserData.toDoor(), authentication.getName());

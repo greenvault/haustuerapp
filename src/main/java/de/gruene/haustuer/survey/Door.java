@@ -3,10 +3,11 @@ package de.gruene.haustuer.survey;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.Instant;
+import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,8 +16,9 @@ import javax.validation.constraints.NotNull;
 public class Door {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @GeneratedValue
+  @Column(columnDefinition = "uuid", updatable = false)
+  private UUID id;
   @NotNull
   @Valid
   @Embedded
@@ -60,7 +62,7 @@ public class Door {
     return this.geolocation;
   }
 
-  public Long getId() {
+  public UUID getId() {
     return this.id;
   }
 
@@ -85,7 +87,7 @@ public class Door {
     this.geolocation = geolocation;
   }
 
-  void setId(final Long id) {
+  void setId(final UUID id) {
     this.id = id;
   }
 
