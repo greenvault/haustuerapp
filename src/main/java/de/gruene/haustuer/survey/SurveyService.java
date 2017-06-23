@@ -33,10 +33,6 @@ public class SurveyService {
     survey.getAddress().setNumber(null);
     surveyResponseRepository.save(survey);
 
-    survey.setTopics(new HashSet<>(
-      topicRepo.findAll(survey.getTopics().stream().map(Topic::getId).collect(Collectors.toSet()))
-    ));
-
     door.setCreator(user);
     doorRepo.save(door);
 

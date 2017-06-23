@@ -1,8 +1,6 @@
 package de.gruene.haustuer.topic;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,83 +9,58 @@ import javax.validation.constraints.Size;
 public class Topic {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @Size(min = 1, max = 255)
+  private String key;
 
   @NotNull
-  @Size(min = 1)
+  @Size(min = 1, max = 10000)
   private String description;
 
   public Topic() {
   }
 
-  public Topic(Long id, String description) {
-    this.id = id;
+  public Topic(String key, String description) {
+    this.key = key;
     this.description = description;
   }
 
   public Topic(Topic other) {
-    this.id = other.id;
-    String s = this.description = other.description;
+    this.key = other.key;
+    this.description = other.description;
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    Topic other = (Topic) obj;
-    if (description == null) {
-      if (other.description != null) {
-        return false;
-      }
-    } else if (!description.equals(other.description)) {
-      return false;
-    }
-    if (id == null) {
-      if (other.id != null) {
-        return false;
-      }
-    } else if (!id.equals(other.id)) {
-      return false;
-    }
-    return true;
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(String key) {
+    this.key = key;
   }
 
   public String getDescription() {
     return description;
   }
 
-  public Long getId() {
-    return id;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    return result;
-  }
-
   public void setDescription(String description) {
     this.description = description;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Topic topic = (Topic) o;
+
+    return key.equals(topic.key);
   }
 
   @Override
-  public String toString() {
-    return "Topic [description=" + description + ", id=" + id + "]";
+  public int hashCode() {
+    return key.hashCode();
   }
-
 }
